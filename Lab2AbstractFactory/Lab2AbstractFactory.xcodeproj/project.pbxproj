@@ -27,6 +27,9 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = A03B80072FA121D20037012A /* Sources */;
 			membershipExceptions = (
+				CPPMethodUnit.hpp,
+				CSHMethodUnit.hpp,
+				JavaMethodUnit.hpp,
 				MethodUnit.hpp,
 			);
 		};

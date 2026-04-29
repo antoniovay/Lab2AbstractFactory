@@ -1,28 +1,27 @@
 #ifndef GENERATEPROGRAM_H
 #define GENERATEPROGRAM_H
 
-#include "ClassUnit.hpp"
-#include "MethodUnit.hpp"
-#include "PrintOperatorUnit.hpp"
+#include "Factory.hpp"
 
-std::string generateProgram() {
-    ClassUnit myClass( "MyClass" );
-    myClass.add(
-                std::make_shared<MethodUnit>("testFunc1", "void", 0),
+std::string generateProgram(Factory *factory) {
+    std::shared_ptr<ClassUnit> myClass = factory->createClass("MyClass");
+
+    myClass->add(
+                factory->createMethod("testFunc1", "void", 0),
                 ClassUnit::PUBLIC
                 );
-    myClass.add(
-                std::make_shared<MethodUnit>("testFunc2", "void", MethodUnit::STATIC),
+    myClass->add(
+                factory->createMethod("testFunc2", "void", MethodUnit::STATIC),
                 ClassUnit::PRIVATE
                 );
-    myClass.add(
-                std::make_shared<MethodUnit>("testFunc3", "void", MethodUnit::VIRTUAL | MethodUnit::CONST),
+    myClass->add(
+                factory->createMethod("testFunc3", "void", MethodUnit::VIRTUAL | MethodUnit::CONST),
                 ClassUnit::PUBLIC
                 );
-    auto method = std::make_shared<MethodUnit>("testFunc4", "void", MethodUnit::STATIC);
-    method->add(std::make_shared< PrintOperatorUnit >(R"(Hello, world!\n)"));
-    myClass.add(method, ClassUnit::PROTECTED);
-    return myClass.compile();
+    auto method = factory->createMethod("testFunc4", "void", MethodUnit::STATIC);
+    method->add(factory->createPrintOperator(R"(Hello, world!\n)"));
+    myClass->add(method, ClassUnit::PROTECTED);
+    return myClass->compile();
 }
 
 #endif
