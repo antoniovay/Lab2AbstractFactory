@@ -5,20 +5,13 @@
 
 #include "ClassUnit.hpp"
 
-class CPPClassUnit : public Unit
+class CPPClassUnit : public ClassUnit
 {
-public:
-    enum AccessModifier {
-        PUBLIC,
-        PROTECTED,
-        PRIVATE
-    };
-    static const std::vector<std::string> ACCESS_MODIFIERS;
-    
 public:
     explicit CPPClassUnit(const std::string& name) : m_name(name) {
         m_fields.resize(ACCESS_MODIFIERS.size());
     }
+    
     void add(const std::shared_ptr<Unit>& unit, Flags flags) {
         int accessModifier = PRIVATE;
         if (flags < ACCESS_MODIFIERS.size()) {
@@ -26,6 +19,7 @@ public:
         }
         m_fields[accessModifier].push_back(unit);
     }
+    
     std::string compile(unsigned int level = 0) const
     {
         std::string result = generateShift(level) + "class " + m_name + " {\n";
@@ -42,11 +36,6 @@ public:
         result += generateShift(level) + "};\n";
         return result;
     }
-    
-private:
-    std::string m_name;
-    using Fields = std::vector<std::shared_ptr<Unit>>;
-    std::vector<Fields> m_fields;
 };
 
 #endif

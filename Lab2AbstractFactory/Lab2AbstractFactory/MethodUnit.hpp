@@ -39,7 +39,7 @@ public:
         return result;
     }
     
-private:
+protected:
     std::string m_name;
     std::string m_returnType;
     Flags m_flags;
