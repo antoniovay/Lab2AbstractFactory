@@ -150,3 +150,17 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 /build*/
+
+# Xcode user data
+*.xcuserdata/
+*.xcuserstate
+
+# Workspace user settings
+*.xcworkspace/
+
+# Optional: Xcode schemes management
+xcuserdata/
+
+Lab2AbstractFactory.xcodeproj/project.xcworkspace/
+Lab2AbstractFactory.xcodeproj/xcuserdata/
+*.xcuserstate
