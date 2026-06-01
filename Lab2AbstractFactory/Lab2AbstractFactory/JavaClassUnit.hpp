@@ -11,7 +11,7 @@ class JavaClassUnit : public ClassUnit
 public:
     explicit JavaClassUnit(const std::string& name) : ClassUnit(name) {}
     
-    void add(const std::shared_ptr<Unit>& unit, Flags flags) {
+    void add(const std::shared_ptr<Unit>& unit, Flags flags) override {
         if(!abstract & static_cast<bool>(unit->getFlags() & JavaMethodUnit::ABSTRACT))
             abstract = true;
         

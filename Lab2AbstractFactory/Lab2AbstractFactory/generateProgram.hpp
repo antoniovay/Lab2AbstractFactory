@@ -3,7 +3,7 @@
 
 #include "Factory.hpp"
 
-std::string generateProgram(Factory *factory) {
+std::string generateProgram(CPPFactory *factory) {
     std::shared_ptr<ClassUnit> myClass = factory->createClass("MyClass");
 
     myClass->add(
