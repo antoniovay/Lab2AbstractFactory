@@ -5,7 +5,7 @@
 
 #include "MethodUnit.hpp"
 
-class CSHMethodUnit : public Unit {
+class CSHMethodUnit : public MethodUnit {
 public:
     enum Modifier : Flags {
         STATIC = 1,

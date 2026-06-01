@@ -5,7 +5,7 @@
 
 #include "MethodUnit.hpp"
 
-class CPPMethodUnit : public Unit {
+class CPPMethodUnit : public MethodUnit {
 public:
     enum Modifier : Flags {
         STATIC = 1,

@@ -5,7 +5,7 @@
 
 #include "MethodUnit.hpp"
 
-class JavaMethodUnit : public Unit {
+class JavaMethodUnit : public MethodUnit {
 public:
     enum Modifier : Flags {
         STATIC = 1,
