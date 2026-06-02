@@ -15,12 +15,12 @@ std::string generateProgram(Factory *factory) {
                 ClassUnit::PRIVATE
                 );
     myClass->add(
-                factory->createMethod("testFunc3", "void", 1 | (1 << 2)),
+                factory->createMethod("testFunc3", "void", (1 << 1) | (1 << 2)),
                 ClassUnit::PUBLIC
                 );
     auto method = factory->createMethod("testFunc4", "void", 1);
-    //method->add(factory->createPrintOperator("(Hello, world!\n)"));
-    myClass->add(method, (1 << 3));
+    method->add(factory->createPrintOperator(R"(Hello, world!\n)"), 0);
+    myClass->add(method, 1);
     return myClass->compile();
 }
 
