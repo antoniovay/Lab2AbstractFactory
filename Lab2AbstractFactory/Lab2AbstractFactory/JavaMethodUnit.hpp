@@ -14,12 +14,15 @@ public:
     };
     
 public:
-    JavaMethodUnit(const std::string& name, const std::string& returnType, Flags flags) :
+    JavaMethodUnit(const std::string& name, const std::string& returnType, Flags flags = 0) :
         MethodUnit(name, returnType, flags)
     {}
     
 public:
     void add(const std::shared_ptr<Unit>& unit, Flags /* flags */ = 0) override {
+        if (m_flags & ABSTRACT)
+            return;
+        
         m_body.push_back(unit);
     }
     
@@ -33,7 +36,7 @@ public:
         else if ((m_flags & STATIC) && !(m_flags & ABSTRACT))
             result += "static ";
         
-        result += m_returnType + " ";
+        result += m_returnType + ' ';
         result += m_name + "()";
         
         if (m_flags & ABSTRACT) {
@@ -43,8 +46,8 @@ public:
         
         result += " {\n";
         
-        for (const auto& b : m_body)
-            result += b->compile(level + 1);
+        for (auto it = m_body.begin(); it != m_body.end(); ++it)
+            result += (*it)->compile(level + 1);
         
         result += generateShift(level) + "}\n";
         

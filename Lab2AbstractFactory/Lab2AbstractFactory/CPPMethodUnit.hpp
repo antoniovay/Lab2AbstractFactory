@@ -9,12 +9,12 @@ class CPPMethodUnit : public MethodUnit {
 public:
     enum Modifier : Flags {
         STATIC = 1,
-        CONST = 1 << 1,
-        VIRTUAL = 1 << 2
+        VIRTUAL = 1 << 1,
+        CONST = 1 << 2
     };
     
 public:
-    CPPMethodUnit(const std::string& name, const std::string& returnType, Flags flags) :
+    CPPMethodUnit(const std::string& name, const std::string& returnType, Flags flags = 0) :
         MethodUnit(name, returnType, flags)
     {}
     
@@ -26,15 +26,15 @@ public:
     std::string compile(unsigned int level = 0) const override {
         std::string result = generateShift(level);
         
-        if (m_flags & STATIC)
+        if (m_flags & Modifier::STATIC)
             result += "static ";
-        else if (m_flags & VIRTUAL)
+        else if (m_flags & Modifier::VIRTUAL)
             result += "virtual ";
         
         result += m_returnType + " ";
         result += m_name + "()";
         
-        if (m_flags & CONST)
+        if (m_flags & Modifier::CONST)
             result += " const";
         
         result += " {\n";

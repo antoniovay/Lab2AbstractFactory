@@ -4,14 +4,15 @@
 #include <vector>
 
 #include "ClassUnit.hpp"
+#include "CSHMethodUnit.hpp"
 
 class CSHClassUnit : public ClassUnit
 {
 public:
     enum CSHAccessModifier : Flags {
-            PUBLIC = AccessModifier::PUBLIC,
-            PROTECTED = AccessModifier::PROTECTED,
-            PRIVATE = AccessModifier::PRIVATE,
+            PUBLIC = StandartAccessModifier::PUBLIC,
+            PROTECTED = StandartAccessModifier::PROTECTED,
+            PRIVATE = StandartAccessModifier::PRIVATE,
             PRIVATE_PROTECTED,
             FILE,
             INTERNAL,
@@ -29,7 +30,7 @@ public:
         if(!abstract & static_cast<bool>(unit->getFlags() & CSHMethodUnit::ABSTRACT))
             abstract = true;
         
-        int accessModifier = PRIVATE;
+        int accessModifier = StandartAccessModifier::PRIVATE;
         
         if (flags < (STANDART_ACCESS_MODIFIERS.size() + CSH_ACCESS_MODIFIERS.size()))
             accessModifier = flags;
@@ -46,14 +47,18 @@ public:
             if (m_fields[i].empty()) {
                 continue;
             }
-            result += STANDART_ACCESS_MODIFIERS[i] + ":\n";
             
             for(const auto& f : m_fields[i]) {
-                result += f->compile(level + 1);
+                result += ((i > STANDART_ACCESS_MODIFIERS.size() - 1) ? CSH_ACCESS_MODIFIERS[i - STANDART_ACCESS_MODIFIERS.size()] : STANDART_ACCESS_MODIFIERS[i]) + ' ';
+                
+                result += f->compile(level);
             }
+            
             result += "\n";
         }
+        
         result += generateShift(level) + "};\n";
+        
         return result;
     }
     

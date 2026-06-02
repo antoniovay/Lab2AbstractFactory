@@ -3,7 +3,7 @@
 
 #include "Factory.hpp"
 
-std::string generateProgram(CPPFactory *factory) {
+std::string generateProgram(Factory *factory) {
     std::shared_ptr<ClassUnit> myClass = factory->createClass("MyClass");
 
     myClass->add(
@@ -11,16 +11,16 @@ std::string generateProgram(CPPFactory *factory) {
                 ClassUnit::PUBLIC
                 );
     myClass->add(
-                factory->createMethod("testFunc2", "void", MethodUnit::STATIC),
+                factory->createMethod("testFunc2", "void", 1),
                 ClassUnit::PRIVATE
                 );
     myClass->add(
-                factory->createMethod("testFunc3", "void", MethodUnit::VIRTUAL | MethodUnit::CONST),
+                factory->createMethod("testFunc3", "void", 1 | (1 << 2)),
                 ClassUnit::PUBLIC
                 );
-    auto method = factory->createMethod("testFunc4", "void", MethodUnit::STATIC);
-    method->add(factory->createPrintOperator(R"(Hello, world!\n)"));
-    myClass->add(method, ClassUnit::PROTECTED);
+    auto method = factory->createMethod("testFunc4", "void", 1);
+    //method->add(factory->createPrintOperator("(Hello, world!\n)"));
+    myClass->add(method, (1 << 3));
     return myClass->compile();
 }
 

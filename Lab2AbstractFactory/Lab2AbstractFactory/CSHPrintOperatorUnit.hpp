@@ -5,7 +5,7 @@
 
 class CSHPrintOperatorUnit : public PrintOperatorUnit {
 public:
-    explicit JavaPrintOperatorUnit(const std::string& text) : PrintOperatorUnit(text)
+    explicit CSHPrintOperatorUnit(const std::string& text) : PrintOperatorUnit(text)
     {}
     
     std::string compile(unsigned int level = 0) const override {

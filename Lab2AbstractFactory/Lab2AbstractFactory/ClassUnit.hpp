@@ -8,7 +8,7 @@
 class ClassUnit : public Unit
 {
 public:
-    enum AccessModifier {
+    enum StandartAccessModifier : Flags {
         PUBLIC,
         PROTECTED,
         PRIVATE

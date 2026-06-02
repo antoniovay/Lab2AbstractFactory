@@ -9,13 +9,14 @@
 class JavaClassUnit : public ClassUnit
 {    
 public:
-    explicit JavaClassUnit(const std::string& name) : ClassUnit(name) {}
+    explicit JavaClassUnit(const std::string& name) : ClassUnit(name)
+    {}
     
-    void add(const std::shared_ptr<Unit>& unit, Flags flags) override {
+    void add(const std::shared_ptr<Unit>& unit, Flags flags = 0) override {
         if(!abstract & static_cast<bool>(unit->getFlags() & JavaMethodUnit::ABSTRACT))
             abstract = true;
         
-        int accessModifier = PRIVATE;
+        int accessModifier = StandartAccessModifier::PUBLIC;
         
         if (flags < STANDART_ACCESS_MODIFIERS.size()) {
             accessModifier = flags;
@@ -31,15 +32,16 @@ public:
             if (m_fields[i].empty())
                 continue;
             
-            result += STANDART_ACCESS_MODIFIERS[i] + ":\n";
-            
             for(const auto& f : m_fields[i]) {
-                result += f->compile(level + 1);
+                result += STANDART_ACCESS_MODIFIERS[i] + ' ';
+                result += f->compile(level);
             }
             
             result += "\n";
         }
+        
         result += generateShift(level) + "};\n";
+        
         return result;
     }
     
