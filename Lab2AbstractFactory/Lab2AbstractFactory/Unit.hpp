@@ -2,6 +2,7 @@
 #define UNIT_H
 
 #include <iostream>
+#include <memory>
 
 class Unit {
 public:
